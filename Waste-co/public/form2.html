@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Personal Information Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="\Waste-co\public\assets\css\style2.css" />
+    <link rel="icon" type="image/x-icon" href="/Waste-co\public\assets\img\favicons\favicon.ico">
+  </head>
+
+  <body>
+    <div class="container">
+      <form class="submit-form" id="personal-info-form" action="index2.html">
+        <h3 class="submit-form-title">Personal Information</h3>
+        <p class="submit-form-desc">
+          Providing these details allows us to better understand and connect
+          with you. Your information is kept confidential and used solely for
+          the purpose of enhancing your user experience.
+        </p>
+
+        <!-- First Name Input -->
+        <label class="basic-info-label required" for="fname">First Name</label>
+        <input
+          class="basic-info-input"
+          name="fname"
+          id="fname"
+          type="text"
+          placeholder="Anil"
+          required
+        />
+
+       
+
+        <!-- Last Name Input -->
+        <label class="basic-info-label required" for="lname">Last Name</label>
+        <input
+          class="basic-info-input"
+          name="lname"
+          id="lname"
+          type="text"
+          placeholder="Gupta"
+          required
+        />
+
+        <!-- Age Input -->
+        <label
+          class="basic-info-label required"
+          for="basic-info-label"
+          for="age"
+          >Age</label
+        >
+        <input
+          class="basic-info-input"
+          name="age"
+          id="age"
+          type="number"
+          min="0"
+          max="100"
+          placeholder="23"
+          required
+        />
+        <label class="basic-info-label" for="phno">Phone number</label>
+        <input
+          class="basic-info-input"
+          name="phno"
+          id="phno"
+          type="text"
+          placeholder="+91-xxxxxxxxxx"
+        />
+
+        <!-- Gender Input -->
+        <label class="basic-info-label required" for="gender">Gender</label>
+        <select class="basic-info-input" name="gender" id="gender" required>
+          <option disabled selected value>---</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+
+        <!-- Address -->
+        <label class="basic-info-label required" for="street">Street Address</label>
+        <input
+          class="basic-info-input"
+          name="street"
+          id="street"
+          type="text"
+          placeholder="Divya apartments"
+          required
+        />
+        <label class="basic-info-label required" for="Locality">Locality</label>
+        <input
+          class="basic-info-input"
+          name="Locality"
+          id="Locality"
+          type="text"
+          placeholder="Mayur Vihar"
+          required
+        />
+        <label class="basic-info-label required" for="City">City</label>
+        <input
+          class="basic-info-input"
+          name="City"
+          id="City"
+          type="text"
+          placeholder="New Delhi"
+          required
+        />
+        <label class="basic-info-label required" for="State">State</label>
+        <input
+          class="basic-info-input"
+          name="State"
+          id="State"
+          type="text"
+          placeholder="New Delhi"
+          required
+        />
+        <label class="basic-info-label required" for="PinCode">PinCode</label>
+        <input
+          class="basic-info-input"
+          name="PinCode"
+          id="PinCode"
+          type="text"
+          placeholder="110089"
+          required
+        />    
+                       
+        <span class="submit-form-terms-and-privacy">
+          <input
+            name="terms-and-privacy"
+            id="terms-and-privacy"
+            type="checkbox"
+            required
+          />
+          <label for="terms-and-privacy"
+            >By checking this box, you acknowledge that you have read and agree
+            to our
+            <a href="about:blank" target="_blank">Terms of Service</a> and
+            <a href="about:blank" target="_blank">Privacy Policy</a>. These
+            documents outline our commitment to safeguarding your personal
+            information and governing the use of our website. We take your
+            privacy and security seriously, and your consent is important to
+            us.</label
+          >
+        </span>
+
+        <span class="submit-form-input">
+          <input class="submit-form-clear js-clear-inputs" type="reset" />
+          <input class="submit-form-button" type="submit" />
+        </span>
+      </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js";
+      import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyC6B0veUFiYzH_Uvg5sPLIvgWGe1a17vVs",
+        authDomain: "form2-cf56b.firebaseapp.com",
+        projectId: "form2-cf56b",
+        databaseURL: "https://form2-cf56b-default-rtdb.firebaseio.com",
+        storageBucket: "form2-cf56b.appspot.com",
+        messagingSenderId: "65234837598",
+        appId: "1:65234837598:web:b411a7d99e59d2811d94cf",
+        measurementId: "G-8G1SNH4C1Z"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const database = getDatabase(app);
+      const auth = getAuth();    
+          
+
+      // Function to handle form submission
+      document.getElementById('personal-info-form').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent the default form submission
+      
+        // Get form values
+        const firstName = document.getElementById('fname').value;
+        const lastName = document.getElementById('lname').value;
+        const age = document.getElementById('age').value;
+        const phoneNumber = document.getElementById('phno').value;
+        const gender = document.getElementById('gender').value;
+        const street = document.getElementById('street').value;
+        const locality = document.getElementById('Locality').value;
+        const city = document.getElementById('City').value;
+        const state = document.getElementById('State').value;
+        const pincode = document.getElementById('PinCode').value;
+      
+        // Create a new entry in the database
+        const newEntryRef = push(ref(database,'personal_info'));
+        set(newEntryRef, {
+          firstName: firstName,
+          lastName: lastName,
+          age: age,
+          phoneNumber: phoneNumber,
+          gender: gender,
+          address: {
+            street: street,
+            locality: locality,
+            city: city,
+            state: state,
+            pincode: pincode
+          }
+        })
+        .then(() => {
+          alert('Form data uploaded successfully!');
+          window.location.href = 'signin.html'; 
+          // Clear form fields after successful submission
+          document.getElementById('personal-info-form').reset();
+        })
+        .catch((error) => {
+          console.error('Error uploading form data:', error);
+          alert('Error uploading form data. Please try again later.');
+      });
+      });  
+      
+    </script>
+  </body>
+</html>
